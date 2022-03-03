@@ -29,6 +29,12 @@ function App() {
           </li>
         `;
       };
+
+      // insertAdjacentHTML 사용해 ul 태그 내부에 menuItemTemplate 추가
+      $("#espresso-menu-list").insertAdjacentHTML(
+        "beforeend",
+        menuItemTemplate(espressoMenuName)
+      );
     }
   });
 }
