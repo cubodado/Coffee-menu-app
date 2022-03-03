@@ -40,7 +40,10 @@ function App() {
       const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
       
       // innerText 사용해 총 개수 값 반영해 변경하기
-      $(".menu-count").innerText = `총 ${menuCount} 개`
+      $(".menu-count").innerText = `총 ${menuCount} 개`;
+
+      // input 초기화
+      $("#espresso-menu-name").value = "";
     }
   });
 }
