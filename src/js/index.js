@@ -8,6 +8,17 @@ function App() {
 
   // 사용자 입력 이벤트 발생 시, 입력값으로 메뉴 템플릿 생성
   $("#espresso-menu-name").addEventListener("keypress", (e) => {
+    // 엔터키가 아니면 return
+    if (e.key !== "Enter") {
+      return;
+    }
+    
+    // 빈 값인 경우 alert를 사용해 알림창
+    if ($("#espresso-menu-name").value === "") {
+      alert("값을 입력해주세요");
+      return;
+    }
+    
     if (e.key === "Enter") {
       const espressoMenuName = $("#espresso-menu-name").value;
       const menuItemTemplate = (name) => {
