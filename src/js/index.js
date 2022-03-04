@@ -6,56 +6,57 @@ function App() {
     e.preventDefault();
   });
 
-  // 사용자 입력 이벤트 발생 시, 입력값으로 메뉴 템플릿 생성
-  $("#espresso-menu-name").addEventListener("keypress", (e) => {
-    // 엔터키가 아니면 return
-    if (e.key !== "Enter") {
-      return;
-    }
-    
+  const addMenuName = () => {
     // 빈 값인 경우 alert를 사용해 알림창
     if ($("#espresso-menu-name").value === "") {
       alert("값을 입력해주세요");
       return;
     }
     
-    if (e.key === "Enter") {
-      const espressoMenuName = $("#espresso-menu-name").value;
-      const menuItemTemplate = (name) => {
-        return `
-          <li class="menu-list-item d-flex items-center py-2">
-            <span class="w-100 pl-2 menu-name">${name}</span>
-            <button
-              type="button"
-              class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
-            >
-              수정
-            </button>
-            <button
-              type="button"
-              class="bg-gray-50 text-gray-500 text-sm menu-remove-button"
-            >
-              삭제
-            </button>
-          </li>
-        `;
-      };
+    const espressoMenuName = $("#espresso-menu-name").value;
+    const menuItemTemplate = (name) => {
+      return `
+        <li class="menu-list-item d-flex items-center py-2">
+          <span class="w-100 pl-2 menu-name">${name}</span>
+          <button
+            type="button"
+            class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
+          >
+            수정
+          </button>
+          <button
+            type="button"
+            class="bg-gray-50 text-gray-500 text-sm menu-remove-button"
+          >
+            삭제
+          </button>
+        </li>
+      `;
+    };
 
-      // insertAdjacentHTML 사용해 ul 태그 내부에 menuItemTemplate 추가
-      $("#espresso-menu-list").insertAdjacentHTML(
-        "beforeend",
-        menuItemTemplate(espressoMenuName)
-      );
+    // insertAdjacentHTML 사용해 ul 태그 내부에 menuItemTemplate 추가
+    $("#espresso-menu-list").insertAdjacentHTML(
+      "beforeend",
+      menuItemTemplate(espressoMenuName)
+    );
 
-      // li 갯수 세서 총 개수 알아내기
-      const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
-      
-      // innerText 사용해 총 개수 값 반영해 변경하기
-      $(".menu-count").innerText = `총 ${menuCount} 개`;
+    // li 갯수 세서 총 개수 알아내기
+    const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
+    
+    // innerText 사용해 총 개수 값 반영해 변경하기
+    $(".menu-count").innerText = `총 ${menuCount} 개`;
 
-      // input 초기화
-      $("#espresso-menu-name").value = "";
+    // input 초기화
+    $("#espresso-menu-name").value = "";
+  };
+
+  // 사용자 입력 이벤트 발생 시, 입력값으로 메뉴 템플릿 생성
+  $("#espresso-menu-name").addEventListener("keypress", (e) => {
+    // 엔터키가 아니면 return
+    if (e.key !== "Enter") {
+      return;
     }
+    addMenuName();
   });
 }
 
