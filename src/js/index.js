@@ -52,6 +52,12 @@ function App() {
     $("#espresso-menu-name").value = "";
   };
 
+  const updateMenuName = (e) => {
+    const $menuName = e.target.closest("li").querySelector(".menu-name");
+    const newMenuName = prompt("변경할 메뉴 이름을 입력해 주세요.", $menuName.innerText);
+    $menuName.innerText = newMenuName;
+  };
+
   // 사용자 입력 이벤트 발생 시, 입력값으로 메뉴 템플릿 생성
   $("#espresso-menu-name").addEventListener("keypress", (e) => {
     // 엔터키가 아니면 return
@@ -70,9 +76,7 @@ function App() {
   $("#espresso-menu-list").addEventListener("click", (e) => {
     // 수정 버튼 이벤트 발생 시, 입력값으로 메뉴 이름 변경
     if (e.target.classList.contains("menu-edit-button")) {
-      const $menuName = e.target.closest("li").querySelector(".menu-name");
-      const newMenuName = prompt("변경할 메뉴 이름을 입력해 주세요.", $menuName.innerText);
-      $menuName.innerText = newMenuName;
+      updateMenuName(e);
     }
     // 삭제 버튼 이벤트 발생 시, 메뉴 삭제
     if (e.target.classList.contains("menu-remove-button")) {
