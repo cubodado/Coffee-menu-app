@@ -58,6 +58,13 @@ function App() {
     $menuName.innerText = newMenuName;
   };
 
+  const removeMenuName = (e) => {
+    if (confirm("삭제하시겠습니까?")) {
+      e.target.closest("li").remove();
+    }
+    updateMenuCount();
+  };
+
   // 사용자 입력 이벤트 발생 시, 입력값으로 메뉴 템플릿 생성
   $("#espresso-menu-name").addEventListener("keypress", (e) => {
     // 엔터키가 아니면 return
@@ -80,10 +87,7 @@ function App() {
     }
     // 삭제 버튼 이벤트 발생 시, 메뉴 삭제
     if (e.target.classList.contains("menu-remove-button")) {
-      if (confirm("삭제하시겠습니까?")) {
-        e.target.closest("li").remove();
-      }
-      updateMenuCount();
+      removeMenuName(e);
     }
   });
 }
