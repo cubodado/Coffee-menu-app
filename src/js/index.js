@@ -75,9 +75,7 @@ function App() {
   });
 
   // 확인 버튼 이벤트 발생 시, 입력값으로 메뉴 템플릿 생성
-  $("#espresso-menu-submit-button").addEventListener("click", () => {
-    addMenuName();
-  })
+  $("#espresso-menu-submit-button").addEventListener("click", addMenuName);
 
   // 이벤트 위임
   $("#espresso-menu-list").addEventListener("click", (e) => {
