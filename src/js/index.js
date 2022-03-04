@@ -6,6 +6,11 @@ function App() {
     e.preventDefault();
   });
 
+  const updateMenuCount = () => {
+    const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
+    $(".menu-count").innerText = `총 ${menuCount} 개`;
+  };
+
   const addMenuName = () => {
     // 빈 값인 경우 alert를 사용해 알림창
     if ($("#espresso-menu-name").value === "") {
@@ -40,11 +45,8 @@ function App() {
       menuItemTemplate(espressoMenuName)
     );
 
-    // li 갯수 세서 총 개수 알아내기
-    const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
-    
-    // innerText 사용해 총 개수 값 반영해 변경하기
-    $(".menu-count").innerText = `총 ${menuCount} 개`;
+    // 총 개수 세기 함수화
+    updateMenuCount();
 
     // input 초기화
     $("#espresso-menu-name").value = "";
@@ -77,6 +79,7 @@ function App() {
       if (confirm("삭제하시겠습니까?")) {
         e.target.closest("li").remove();
       }
+      updateMenuCount();
     }
   });
 }
