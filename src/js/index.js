@@ -58,6 +58,11 @@ function App() {
     }
     addMenuName();
   });
+
+  // 확인 버튼 이벤트 발생 시, 입력값으로 메뉴 템플릿 생성
+  $("#espresso-menu-submit-button").addEventListener("click", () => {
+    addMenuName();
+  })
 }
 
 App();
