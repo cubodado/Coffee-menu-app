@@ -64,12 +64,19 @@ function App() {
     addMenuName();
   })
 
-  // 수정 버튼 이벤트 발생 시, 입력값으로 메뉴 이름 변경
+  // 이벤트 위임
   $("#espresso-menu-list").addEventListener("click", (e) => {
+    // 수정 버튼 이벤트 발생 시, 입력값으로 메뉴 이름 변경
     if (e.target.classList.contains("menu-edit-button")) {
       const $menuName = e.target.closest("li").querySelector(".menu-name");
       const newMenuName = prompt("변경할 메뉴 이름을 입력해 주세요.", $menuName.innerText);
       $menuName.innerText = newMenuName;
+    }
+    // 삭제 버튼 이벤트 발생 시, 메뉴 삭제
+    if (e.target.classList.contains("menu-remove-button")) {
+      if (confirm("삭제하시겠습니까?")) {
+        e.target.closest("li").remove();
+      }
     }
   });
 }
