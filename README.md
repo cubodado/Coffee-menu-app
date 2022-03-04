@@ -4,7 +4,9 @@
 >
 > 참고 미션 저장소 : [blackcoffee-study/moonbucks-menu](https://github.com/blackcoffee-study/moonbucks-menu)
 
-## 🎯 step1 요구사항 - 돔 조작과 이벤트 핸들링으로 메뉴 관리하기
+## 🎯 step1 요구사항
+
+### 🏷️ 돔 조작과 이벤트 핸들링으로 메뉴 관리하기
 
 - [x] 에스프레소 메뉴에 새로운 메뉴를 확인 버튼 또는 엔터키 입력으로 추가한다.
   - [x] 메뉴가 추가되고 나면, input은 빈 값으로 초기화한다.
@@ -34,7 +36,7 @@
 </li>
 ```
 
-## 🎯 step1 요구사항 구현 단계 
+## ⚒️ step1 요구사항 구현 단계 
 
 > * 요구사항 목적 정확히 체크
 > * 목적 달성 위한 구현 단계 나누기
@@ -62,3 +64,7 @@
 * [x] 메뉴 삭제 버튼 클릭 이벤트 발생 후, `confirm` 창이 뜸
 * [x] 확인 버튼 클릭하면 메뉴 삭제
 * [x] 총 메뉴 개수를 세서 화면 상단에 표시하기
+
+## 📝 step1 회고
+
+* [step1 회고](https://cubodado.github.io/javascript/2022/03/03/Step-1.html)
