@@ -1,11 +1,6 @@
 const $ = (selector) => document.querySelector(selector);
 
 function App() {
-  // form 태그가 자동으로 전송되는 것 막아주기
-  $("#espresso-menu-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-  });
-
   const updateMenuCount = () => {
     const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
     $(".menu-count").innerText = `총 ${menuCount} 개`;
@@ -64,6 +59,11 @@ function App() {
     }
     updateMenuCount();
   };
+  
+  // form 태그가 자동으로 전송되는 것 막아주기
+  $("#espresso-menu-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+  });
 
   // 사용자 입력 이벤트 발생 시, 입력값으로 메뉴 템플릿 생성
   $("#espresso-menu-name").addEventListener("keypress", (e) => {
