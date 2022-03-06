@@ -5,29 +5,20 @@ const store = {
     localStorage.setItem("menu", JSON.stringify(menu));
   },
   getLocalStorage() {
-    localStorage.getItem("menu");
+    return JSON.parse(localStorage.getItem("menu"));
   }
 }
 
 function App() {
-  // 메뉴 상태 배열
   this.menu = [];
-  
-  const updateMenuCount = () => {
-    const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
-    $(".menu-count").innerText = `총 ${menuCount} 개`;
-  };
-
-  const addMenuName = () => {
-    // 빈 값인 경우 alert를 사용해 알림창
-    if ($("#espresso-menu-name").value === "") {
-      alert("값을 입력해주세요");
-      return;
+  this.init = () => {
+    if (store.getLocalStorage().length > 1) {
+      this.menu = store.getLocalStorage();
     }
-    
-    const espressoMenuName = $("#espresso-menu-name").value;
-    this.menu.push({ name: espressoMenuName });
-    store.setLocalStorage(this.menu);
+    render();
+  };
+  
+  const render = () => {
     const menuItemTemplate = this.menu.map((item, id) => {
       return `
         <li data-menu-id="${id}" class="menu-list-item d-flex items-center py-2">
@@ -46,15 +37,28 @@ function App() {
           </button>
         </li>
       `;
-    }).join("")
+    }).join("");
 
-    // 한 번에 여러 li 태그를 추가하기 때문에 innerHTML로 메소드 변경
     $("#espresso-menu-list").innerHTML = menuItemTemplate;
-
-    // 총 개수 세기 함수화
     updateMenuCount();
+  };
 
-    // input 초기화
+  const updateMenuCount = () => {
+    const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
+    $(".menu-count").innerText = `총 ${menuCount} 개`;
+  };
+
+  const addMenuName = () => {
+    if ($("#espresso-menu-name").value === "") {
+      alert("값을 입력해주세요");
+      return;
+    }
+    
+    const espressoMenuName = $("#espresso-menu-name").value;
+    this.menu.push({ name: espressoMenuName });
+    store.setLocalStorage(this.menu);
+    render();
+
     $("#espresso-menu-name").value = "";
   };
 
@@ -112,3 +116,4 @@ function App() {
 }
 
 const app = new App();
+app.init();
