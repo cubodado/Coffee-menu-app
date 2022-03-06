@@ -1,5 +1,14 @@
 const $ = (selector) => document.querySelector(selector);
 
+const store = {
+  setLocalStorage(menu) {
+    localStorage.setItem("menu", JSON.stringify(menu));
+  },
+  getLocalStorage() {
+    localStorage.getItem("menu");
+  }
+}
+
 function App() {
   const updateMenuCount = () => {
     const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
@@ -59,7 +68,7 @@ function App() {
     }
     updateMenuCount();
   };
-  
+
   // form 태그가 자동으로 전송되는 것 막아주기
   $("#espresso-menu-form").addEventListener("submit", (e) => {
     e.preventDefault();
