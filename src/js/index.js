@@ -69,9 +69,16 @@ function App() {
 
   const removeMenuName = (e) => {
     if (confirm("삭제하시겠습니까?")) {
+      const menuId = e.target.closest("li").dataset.menuId;
+      this.menu.splice(menuId, 1);
+      store.setLocalStorage(this.menu);
       e.target.closest("li").remove();
+      const li = document.querySelectorAll("li");
+      li.forEach((item, index) => {
+        item.dataset.menuId = index;
+      });
+      updateMenuCount();
     }
-    updateMenuCount();
   };
 
   // form 태그가 자동으로 전송되는 것 막아주기
