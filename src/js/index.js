@@ -57,7 +57,7 @@ function App() {
   };
 
   const updateMenuCount = () => {
-    const menuCount = $("#menu-list").querySelectorAll("li").length
+    const menuCount = this.menu[this.currentCategoryName].length;
     $(".menu-count").innerText = `총 ${menuCount} 개`;
   };
 
