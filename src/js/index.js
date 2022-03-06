@@ -113,6 +113,14 @@ function App() {
       removeMenuName(e);
     }
   });
+
+  $("nav").addEventListener("click", (e) => {
+    const isCategoryButton = e.target.classList.contains("cafe-category-name");
+    if (isCategoryButton) {
+      const categoryName = e.target.dataset.categoryName;
+      console.log(categoryName);
+    }
+  });
 }
 
 const app = new App();
