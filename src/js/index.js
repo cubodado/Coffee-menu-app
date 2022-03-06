@@ -92,30 +92,23 @@ function App() {
     }
   };
 
-  // form 태그가 자동으로 전송되는 것 막아주기
   $("#menu-form").addEventListener("submit", (e) => {
     e.preventDefault();
   });
 
-  // 사용자 입력 이벤트 발생 시, 입력값으로 메뉴 템플릿 생성
   $("#menu-name").addEventListener("keypress", (e) => {
-    // 엔터키가 아니면 return
     if (e.key !== "Enter") {
       return;
     }
     addMenuName();
   });
 
-  // 확인 버튼 이벤트 발생 시, 입력값으로 메뉴 템플릿 생성
   $("#menu-submit-button").addEventListener("click", addMenuName);
 
-  // 이벤트 위임
   $("#menu-list").addEventListener("click", (e) => {
-    // 수정 버튼 이벤트 발생 시, 입력값으로 메뉴 이름 변경
     if (e.target.classList.contains("menu-edit-button")) {
       editMenuName(e);
     }
-    // 삭제 버튼 이벤트 발생 시, 메뉴 삭제
     if (e.target.classList.contains("menu-remove-button")) {
       removeMenuName(e);
     }
