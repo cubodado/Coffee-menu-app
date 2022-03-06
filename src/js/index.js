@@ -10,6 +10,9 @@ const store = {
 }
 
 function App() {
+  // 메뉴 상태 배열
+  this.menu = [];
+  
   const updateMenuCount = () => {
     const menuCount = $("#espresso-menu-list").querySelectorAll("li").length
     $(".menu-count").innerText = `총 ${menuCount} 개`;
@@ -23,10 +26,11 @@ function App() {
     }
     
     const espressoMenuName = $("#espresso-menu-name").value;
-    const menuItemTemplate = (name) => {
+    this.menu.push({ name: espressoMenuName });
+    const menuItemTemplate = this.menu.map(item => {
       return `
         <li class="menu-list-item d-flex items-center py-2">
-          <span class="w-100 pl-2 menu-name">${name}</span>
+          <span class="w-100 pl-2 menu-name">${item.name}</span>
           <button
             type="button"
             class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
@@ -41,13 +45,10 @@ function App() {
           </button>
         </li>
       `;
-    };
+    }).join("")
 
-    // insertAdjacentHTML 사용해 ul 태그 내부에 menuItemTemplate 추가
-    $("#espresso-menu-list").insertAdjacentHTML(
-      "beforeend",
-      menuItemTemplate(espressoMenuName)
-    );
+    // 한 번에 여러 li 태그를 추가하기 때문에 innerHTML로 메소드 변경
+    $("#espresso-menu-list").innerHTML = menuItemTemplate;
 
     // 총 개수 세기 함수화
     updateMenuCount();
@@ -99,4 +100,4 @@ function App() {
   });
 }
 
-App();
+const app = new App();
