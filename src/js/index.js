@@ -10,6 +10,8 @@ const store = {
 }
 
 function App() {
+  this.currentCategoryName = "espresso";
+
   this.menu = {
     espresso: [],
     frappuccino: [],
@@ -17,12 +19,13 @@ function App() {
     teavana: [],
     desert: []
   };
-  this.currentCategoryName = "espresso";
+
   this.init = () => {
     if (store.getLocalStorage()) {
       this.menu = store.getLocalStorage();
     }
     render();
+    initEventListeners();
   };
   
   const render = () => {
@@ -104,43 +107,45 @@ function App() {
     render();
   };
 
-  $("#menu-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-  });
-
-  $("#menu-name").addEventListener("keypress", (e) => {
-    if (e.key !== "Enter") {
-      return;
-    }
-    addMenuName();
-  });
-
-  $("#menu-submit-button").addEventListener("click", addMenuName);
-
-  $("#menu-list").addEventListener("click", (e) => {
-    if (e.target.classList.contains("menu-edit-button")) {
-      editMenuName(e);
-      return;
-    }
-    if (e.target.classList.contains("menu-remove-button")) {
-      removeMenuName(e);
-      return;
-    }
-    if (e.target.classList.contains("menu-sold-out-button")) {
-      soldOutMenu(e);
-      return;
-    }
-  });
-
-  $("nav").addEventListener("click", (e) => {
-    const isCategoryButton = e.target.classList.contains("cafe-category-name");
-    if (isCategoryButton) {
-      const categoryName = e.target.dataset.categoryName;
-      this.currentCategoryName = categoryName;
-      $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`;
-      render();
-    }
-  });
+  const initEventListeners = () => {
+    $("#menu-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+  
+    $("#menu-name").addEventListener("keypress", (e) => {
+      if (e.key !== "Enter") {
+        return;
+      }
+      addMenuName();
+    });
+  
+    $("#menu-submit-button").addEventListener("click", addMenuName);
+  
+    $("#menu-list").addEventListener("click", (e) => {
+      if (e.target.classList.contains("menu-edit-button")) {
+        editMenuName(e);
+        return;
+      }
+      if (e.target.classList.contains("menu-remove-button")) {
+        removeMenuName(e);
+        return;
+      }
+      if (e.target.classList.contains("menu-sold-out-button")) {
+        soldOutMenu(e);
+        return;
+      }
+    });
+  
+    $("nav").addEventListener("click", (e) => {
+      const isCategoryButton = e.target.classList.contains("cafe-category-name");
+      if (isCategoryButton) {
+        const categoryName = e.target.dataset.categoryName;
+        this.currentCategoryName = categoryName;
+        $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`;
+        render();
+      }
+    });
+  };
 }
 
 const app = new App();
