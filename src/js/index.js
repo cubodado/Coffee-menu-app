@@ -10,16 +10,23 @@ const store = {
 }
 
 function App() {
-  this.menu = [];
+  this.menu = {
+    espresso: [],
+    frappuccino: [],
+    blended: [],
+    teavana: [],
+    desert: []
+  };
+  this.currentCategoryName = "espresso";
   this.init = () => {
-    if (store.getLocalStorage().length > 1) {
+    if (store.getLocalStorage()) {
       this.menu = store.getLocalStorage();
     }
     render();
   };
   
   const render = () => {
-    const menuItemTemplate = this.menu.map((item, id) => {
+    const menuItemTemplate = this.menu[this.currentCategoryName].map((item, id) => {
       return `
         <li data-menu-id="${id}" class="menu-list-item d-flex items-center py-2">
           <span class="w-100 pl-2 menu-name">${item.name}</span>
@@ -55,7 +62,7 @@ function App() {
     }
     
     const espressoMenuName = $("#espresso-menu-name").value;
-    this.menu.push({ name: espressoMenuName });
+    this.menu[this.currentCategoryName].push({ name: espressoMenuName });
     store.setLocalStorage(this.menu);
     render();
 
@@ -66,7 +73,7 @@ function App() {
     const menuId = e.target.closest("li").dataset.menuId;
     const $menuName = e.target.closest("li").querySelector(".menu-name");
     const newMenuName = prompt("변경할 메뉴 이름을 입력해 주세요.", $menuName.innerText);
-    this.menu[menuId].name = newMenuName;
+    this.menu[this.currentCategoryName][menuId].name = newMenuName;
     store.setLocalStorage(this.menu);
     $menuName.innerText = newMenuName;
   };
@@ -74,7 +81,7 @@ function App() {
   const removeMenuName = (e) => {
     if (confirm("삭제하시겠습니까?")) {
       const menuId = e.target.closest("li").dataset.menuId;
-      this.menu.splice(menuId, 1);
+      this.menu[this.currentCategoryName].splice(menuId, 1);
       store.setLocalStorage(this.menu);
       e.target.closest("li").remove();
       const li = document.querySelectorAll("li");
@@ -118,7 +125,9 @@ function App() {
     const isCategoryButton = e.target.classList.contains("cafe-category-name");
     if (isCategoryButton) {
       const categoryName = e.target.dataset.categoryName;
-      console.log(categoryName);
+      this.currentCategoryName = categoryName;
+      $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`;
+      render();
     }
   });
 }
