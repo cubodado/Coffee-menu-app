@@ -75,7 +75,7 @@
 
 ### 🏷️ 상태 관리로 메뉴 관리하기
 
-* [ ]  [localStorage](https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage)에 데이터를 저장하여 새로고침해도 데이터가 남아있게 한다.
+* [x]  [localStorage](https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage)에 데이터를 저장하여 새로고침해도 데이터가 남아있게 한다.
 
 * [ ] 에스프레소, 프라푸치노, 블렌디드, 티바나, 디저트 각각의 종류별로 메뉴판을 관리할 수 있게 만든다.
 
@@ -115,10 +115,10 @@
 
 ### ☑️ localStorage
 
-* [ ] 데이터는 localStorage에 저장
-  * [ ] 메뉴 추가 시 저장
-  * [ ] 메뉴 수정 시 저장
-  * [ ] 메뉴 삭제 시 저장
+* [x] 데이터는 localStorage에 저장
+  * [x] 메뉴 추가 시 저장
+  * [x] 메뉴 수정 시 저장
+  * [x] 메뉴 삭제 시 저장
 * [ ] localStorage에 있는 데이터 읽기
 
 ### ☑️ 메뉴판 관리
