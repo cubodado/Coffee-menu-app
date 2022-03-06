@@ -81,7 +81,7 @@ function App() {
     const newMenuName = prompt("변경할 메뉴 이름을 입력해 주세요.", $menuName.innerText);
     this.menu[this.currentCategoryName][menuId].name = newMenuName;
     store.setLocalStorage(this.menu);
-    $menuName.innerText = newMenuName;
+    render();
   };
 
   const removeMenuName = (e) => {
@@ -89,12 +89,11 @@ function App() {
       const menuId = e.target.closest("li").dataset.menuId;
       this.menu[this.currentCategoryName].splice(menuId, 1);
       store.setLocalStorage(this.menu);
-      e.target.closest("li").remove();
       const li = document.querySelectorAll("li");
       li.forEach((item, index) => {
         item.dataset.menuId = index;
       });
-      updateMenuCount();
+      render();
     }
   };
 
