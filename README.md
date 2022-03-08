@@ -140,3 +140,8 @@
 * [x] 품절 버튼 클릭 이벤트를 통해 localStorage 데이터의 상태 변경
 * [x] 품절 메뉴에 해당하는 li 태그의 class 속성값에 sold-out 추가
 
+## 📝 step2 회고
+
+* [step2 회고](https://cubodado.github.io/javascript/2022/03/06/Step-2.html)
+
+<br/>
