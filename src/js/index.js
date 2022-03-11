@@ -3,6 +3,13 @@ import store from "./store/index.js";
 
 const BASE_URL = "http://localhost:3000/api";
 
+const MenuApi = {
+  async getAllMenuByCategory(category) {
+    const response = await fetch(`${BASE_URL}/category/${category}/menu`)
+    return response.json();
+  }
+};
+
 function App() {
   this.currentCategoryName = "espresso";
 
@@ -14,10 +21,10 @@ function App() {
     desert: []
   };
 
-  this.init = () => {
-    if (store.getLocalStorage()) {
-      this.menu = store.getLocalStorage();
-    }
+  this.init = async () => {
+    this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(
+      this.currentCategoryName
+    );
     render();
     initEventListeners();
   };
@@ -77,14 +84,9 @@ function App() {
         return res.json();
       })
 
-    await fetch(`${BASE_URL}/category/${this.currentCategoryName}/menu`)
-      .then((res) => {
-        return res.json();
-      }).then((data) => {
-        this.menu[this.currentCategoryName] = data;
-        render();
-        $("#menu-name").value = "";
-      });    
+    this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName);
+    render();
+    $("#menu-name").value = "";  
   };
 
   const editMenuName = (e) => {
