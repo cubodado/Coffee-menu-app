@@ -58,24 +58,33 @@ function App() {
     $(".menu-count").innerText = `총 ${menuCount} 개`;
   };
 
-  const addMenuName = () => {
+  const addMenuName = async () => {
     if ($("#menu-name").value === "") {
       alert("값을 입력해주세요");
       return;
     }
     
     const menuName = $("#menu-name").value;
-    fetch(`${BASE_URL}/category/${this.currentCategoryName}/menu`, {
+    
+    await fetch(`${BASE_URL}/category/${this.currentCategoryName}/menu`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ name: menuName })
-    }).then((res) => {
-      return res.json();
-    }).then((data) => {
-      console.log(data)
     })
+      .then((res) => {
+        return res.json();
+      })
+
+    await fetch(`${BASE_URL}/category/${this.currentCategoryName}/menu`)
+      .then((res) => {
+        return res.json();
+      }).then((data) => {
+        this.menu[this.currentCategoryName] = data;
+        render();
+        $("#menu-name").value = "";
+      });    
   };
 
   const editMenuName = (e) => {
