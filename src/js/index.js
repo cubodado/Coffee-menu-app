@@ -1,6 +1,8 @@
 import { $ } from "./utils/dom.js";
 import store from "./store/index.js";
 
+const BASE_URL = "http://localhost:3000/api";
+
 function App() {
   this.currentCategoryName = "espresso";
 
@@ -63,11 +65,17 @@ function App() {
     }
     
     const menuName = $("#menu-name").value;
-    this.menu[this.currentCategoryName].push({ name: menuName });
-    store.setLocalStorage(this.menu);
-    render();
-
-    $("#menu-name").value = "";
+    fetch(`${BASE_URL}/category/${this.currentCategoryName}/menu`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name: menuName })
+    }).then((res) => {
+      return res.json();
+    }).then((data) => {
+      console.log(data)
+    })
   };
 
   const editMenuName = (e) => {
