@@ -7,6 +7,18 @@ const MenuApi = {
   async getAllMenuByCategory(category) {
     const response = await fetch(`${BASE_URL}/category/${category}/menu`)
     return response.json();
+  },
+  async createMenu(category, name) {
+    const response = await fetch(`${BASE_URL}/category/${category}/menu`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name })
+    });
+    if (!response.ok) {
+      console.error("Error");
+    }
   }
 };
 
@@ -72,18 +84,7 @@ function App() {
     }
     
     const menuName = $("#menu-name").value;
-    
-    await fetch(`${BASE_URL}/category/${this.currentCategoryName}/menu`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ name: menuName })
-    })
-      .then((res) => {
-        return res.json();
-      })
-
+    await MenuApi.createMenu(this.currentCategoryName, menuName);
     this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName);
     render();
     $("#menu-name").value = "";  
