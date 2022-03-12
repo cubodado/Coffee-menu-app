@@ -65,7 +65,7 @@ function App() {
       return;
     }
     
-    if (isDuplicatedName()) {
+    if (isDuplicatedName($("#menu-name").value)) {
       alert("이미 등록된 메뉴입니다. 다른 메뉴를 등록해 주세요.");
       $("#menu-name").value = "";
       return;
