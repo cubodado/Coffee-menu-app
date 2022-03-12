@@ -1,5 +1,4 @@
 import { $ } from "./utils/dom.js";
-import store from "./store/index.js";
 
 const BASE_URL = "http://localhost:3000/api";
 
