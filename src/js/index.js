@@ -84,6 +84,8 @@ function App() {
     if (isDuplicatedName(newMenuName)) {
       alert("이미 등록된 메뉴 이름입니다. 다른 메뉴 이름을 입력해 주세요.");
       editMenuName(e);
+    } else if (newMenuName === null) {
+      await MenuApi.editMenu(this.currentCategoryName, $menuName.innerText, menuId);
     } else{
       await MenuApi.editMenu(this.currentCategoryName, newMenuName, menuId);
     }
