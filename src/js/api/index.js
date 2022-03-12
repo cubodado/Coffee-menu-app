@@ -30,7 +30,7 @@ const request = async (url, option) => {
   const response = await fetch(url, option);
   if (!response.ok) {
     alert("에러가 발생했습니다.");
-    console.error(e);
+    console.error("Error");
   }
   return response.json();
 };
@@ -39,7 +39,7 @@ const requestWithoutJson = async (url, option) => {
   const response = await fetch(url, option);
   if (!response.ok) {
     alert(`${response.ok} 에러가 발생했습니다.`);
-    console.error(e);
+    console.error("Error");
   }
   return response;
 };
