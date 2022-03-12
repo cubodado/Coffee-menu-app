@@ -1,5 +1,5 @@
 import { $ } from "./utils/dom.js";
-import { MenuApi } from "./api/index.js";
+import MenuApi from "./api/index.js";
 
 function App() {
   this.currentCategoryName = "espresso";
@@ -13,14 +13,12 @@ function App() {
   };
 
   this.init = async () => {
-    this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(
-      this.currentCategoryName
-    );
     render();
     initEventListeners();
   };
   
-  const render = () => {
+  const render = async () => {
+    this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName);
     const menuItemTemplate = this.menu[this.currentCategoryName].map((item) => {
       return `
         <li data-menu-id="${item.id}" class="menu-list-item d-flex items-center py-2">
@@ -64,7 +62,6 @@ function App() {
     
     const menuName = $("#menu-name").value;
     await MenuApi.createMenu(this.currentCategoryName, menuName);
-    this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName);
     render();
     $("#menu-name").value = "";  
   };
@@ -74,7 +71,6 @@ function App() {
     const $menuName = e.target.closest("li").querySelector(".menu-name");
     const newMenuName = prompt("변경할 메뉴 이름을 입력해 주세요.", $menuName.innerText);
     await MenuApi.editMenu(this.currentCategoryName, newMenuName, menuId);
-    this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName);
     render();
   };
 
@@ -82,7 +78,6 @@ function App() {
     if (confirm("삭제하시겠습니까?")) {
       const menuId = e.target.closest("li").dataset.menuId;
       await MenuApi.deleteMenu(this.currentCategoryName, menuId);
-      this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName);
       render();
     }
   };
@@ -90,7 +85,6 @@ function App() {
   const soldOutMenu = async (e) => {
     const menuId = e.target.closest("li").dataset.menuId;
     await MenuApi.toggleSoldOut(this.currentCategoryName, menuId);
-    this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName);
     render();
   };
 
@@ -129,7 +123,6 @@ function App() {
         const categoryName = e.target.dataset.categoryName;
         this.currentCategoryName = categoryName;
         $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`;
-        this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName)
         render();
       }
     });
