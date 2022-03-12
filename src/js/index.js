@@ -148,12 +148,13 @@ function App() {
       }
     });
   
-    $("nav").addEventListener("click", (e) => {
+    $("nav").addEventListener("click", async (e) => {
       const isCategoryButton = e.target.classList.contains("cafe-category-name");
       if (isCategoryButton) {
         const categoryName = e.target.dataset.categoryName;
         this.currentCategoryName = categoryName;
         $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`;
+        this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName)
         render();
       }
     });
