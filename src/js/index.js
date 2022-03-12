@@ -19,6 +19,19 @@ const MenuApi = {
     if (!response.ok) {
       console.error("Error");
     }
+  },
+  async editMenu(category, name, menuId) {
+    const response = await fetch(`${BASE_URL}/category/${category}/menu/${menuId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name })
+    })
+    if (!response.ok) {
+      console.error("Error");
+    }
+    return response.json();
   }
 };
 
@@ -42,9 +55,9 @@ function App() {
   };
   
   const render = () => {
-    const menuItemTemplate = this.menu[this.currentCategoryName].map((item, id) => {
+    const menuItemTemplate = this.menu[this.currentCategoryName].map((item) => {
       return `
-        <li data-menu-id="${id}" class="menu-list-item d-flex items-center py-2">
+        <li data-menu-id="${item.id}" class="menu-list-item d-flex items-center py-2">
           <span class="w-100 pl-2 menu-name ${item.soldOut ? "sold-out" : ""}">${item.name}</span>
           <button
           type="button"
@@ -90,12 +103,12 @@ function App() {
     $("#menu-name").value = "";  
   };
 
-  const editMenuName = (e) => {
+  const editMenuName = async (e) => {
     const menuId = e.target.closest("li").dataset.menuId;
     const $menuName = e.target.closest("li").querySelector(".menu-name");
     const newMenuName = prompt("변경할 메뉴 이름을 입력해 주세요.", $menuName.innerText);
-    this.menu[this.currentCategoryName][menuId].name = newMenuName;
-    store.setLocalStorage(this.menu);
+    await MenuApi.editMenu(this.currentCategoryName, newMenuName, menuId);
+    this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName);
     render();
   };
 
