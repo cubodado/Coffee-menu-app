@@ -38,6 +38,11 @@ const MenuApi = {
       method: "PUT"
     }); 
     return response.json();
+  },
+  async deleteMenu(category, menuId) {
+    await fetch(`${BASE_URL}/category/${category}/menu/${menuId}`, {
+      method: "DELETE"
+    })
   }
 };
 
@@ -118,15 +123,11 @@ function App() {
     render();
   };
 
-  const removeMenuName = (e) => {
+  const deleteMenu = async (e) => {
     if (confirm("삭제하시겠습니까?")) {
       const menuId = e.target.closest("li").dataset.menuId;
-      this.menu[this.currentCategoryName].splice(menuId, 1);
-      store.setLocalStorage(this.menu);
-      const li = document.querySelectorAll("li");
-      li.forEach((item, index) => {
-        item.dataset.menuId = index;
-      });
+      await MenuApi.deleteMenu(this.currentCategoryName, menuId);
+      this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName);
       render();
     }
   };
@@ -158,7 +159,7 @@ function App() {
         return;
       }
       if (e.target.classList.contains("menu-remove-button")) {
-        removeMenuName(e);
+        deleteMenu(e);
         return;
       }
       if (e.target.classList.contains("menu-sold-out-button")) {
