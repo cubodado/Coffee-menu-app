@@ -279,8 +279,8 @@ live-server 폴더명
 
 ### ☑️ 리팩토링
 
-* [ ] localStorage에 저장하는 로직 삭제
-* [ ] fetch 비동기 api를 사용할 때는 async, await로 구현
+* [x] localStorage에 저장하는 로직 삭제
+* [x] fetch 비동기 api를 사용할 때는 async, await로 구현
 
 ### ☑️ 사용자 경험
 
