@@ -49,6 +49,11 @@ function App() {
     updateMenuCount();
   };
 
+  const isDuplicatedName = (menuName) => {
+    const duplicatedName = this.menu[this.currentCategoryName].find(menuItem => menuItem.name === menuName);
+    return duplicatedName;
+  };
+
   const updateMenuCount = () => {
     const menuCount = this.menu[this.currentCategoryName].length;
     $(".menu-count").innerText = `총 ${menuCount} 개`;
@@ -60,6 +65,12 @@ function App() {
       return;
     }
     
+    if (isDuplicatedName()) {
+      alert("이미 등록된 메뉴입니다. 다른 메뉴를 등록해 주세요.");
+      $("#menu-name").value = "";
+      return;
+    }
+
     const menuName = $("#menu-name").value;
     await MenuApi.createMenu(this.currentCategoryName, menuName);
     render();
@@ -70,7 +81,12 @@ function App() {
     const menuId = e.target.closest("li").dataset.menuId;
     const $menuName = e.target.closest("li").querySelector(".menu-name");
     const newMenuName = prompt("변경할 메뉴 이름을 입력해 주세요.", $menuName.innerText);
-    await MenuApi.editMenu(this.currentCategoryName, newMenuName, menuId);
+    if (isDuplicatedName(newMenuName)) {
+      alert("이미 등록된 메뉴 이름입니다. 다른 메뉴 이름을 입력해 주세요.");
+      editMenuName(e);
+    } else{
+      await MenuApi.editMenu(this.currentCategoryName, newMenuName, menuId);
+    }
     render();
   };
 
