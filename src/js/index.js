@@ -89,6 +89,16 @@ function App() {
   };
 
   const initEventListeners = () => {
+    const changeCategory =  (e) => {
+      const isCategoryButton = e.target.classList.contains("cafe-category-name");
+      if (isCategoryButton) {
+        const categoryName = e.target.dataset.categoryName;
+        this.currentCategoryName = categoryName;
+        $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`;
+        render();
+      }
+    };
+
     $("#menu-form").addEventListener("submit", (e) => {
       e.preventDefault();
     });
@@ -117,15 +127,7 @@ function App() {
       }
     });
   
-    $("nav").addEventListener("click", async (e) => {
-      const isCategoryButton = e.target.classList.contains("cafe-category-name");
-      if (isCategoryButton) {
-        const categoryName = e.target.dataset.categoryName;
-        this.currentCategoryName = categoryName;
-        $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`;
-        render();
-      }
-    });
+    $("nav").addEventListener("click", changeCategory);
   };
 }
 
