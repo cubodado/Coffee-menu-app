@@ -27,10 +27,16 @@ const MenuApi = {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ name })
-    })
+    });
     if (!response.ok) {
       console.error("Error");
     }
+    return response.json();
+  },
+  async toggleSoldOut(category, menuId) {
+    const response = await fetch(`${BASE_URL}/category/${category}/menu/${menuId}/soldout`, {
+      method: "PUT"
+    }); 
     return response.json();
   }
 };
@@ -58,7 +64,7 @@ function App() {
     const menuItemTemplate = this.menu[this.currentCategoryName].map((item) => {
       return `
         <li data-menu-id="${item.id}" class="menu-list-item d-flex items-center py-2">
-          <span class="w-100 pl-2 menu-name ${item.soldOut ? "sold-out" : ""}">${item.name}</span>
+          <span class="w-100 pl-2 menu-name ${item.isSoldOut ? "sold-out" : ""}">${item.name}</span>
           <button
           type="button"
           class="bg-gray-50 text-gray-500 text-sm mr-1 menu-sold-out-button"
@@ -125,10 +131,10 @@ function App() {
     }
   };
 
-  const soldOutMenu = (e) => {
+  const soldOutMenu = async (e) => {
     const menuId = e.target.closest("li").dataset.menuId;
-    this.menu[this.currentCategoryName][menuId].soldOut = !this.menu[this.currentCategoryName][menuId].soldOut;
-    store.setLocalStorage(this.menu);
+    await MenuApi.toggleSoldOut(this.currentCategoryName, menuId);
+    this.menu[this.currentCategoryName] = await MenuApi.getAllMenuByCategory(this.currentCategoryName);
     render();
   };
 
