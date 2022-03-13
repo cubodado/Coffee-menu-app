@@ -4,6 +4,45 @@
 >
 > 참고 미션 저장소 + step별 요구사항 : [blackcoffee-study/moonbucks-menu](https://github.com/blackcoffee-study/moonbucks-menu)
 
+## 기능 GIF
+
+<details>
+	<summary>메뉴 추가</summary>
+  <img src="./assets/메뉴추가.gif">
+</details>
+
+<details>
+	<summary>메뉴 추가 예외 처리</summary>
+  <img src="./assets/메뉴추가예외처리.gif">
+</details>
+
+<details>
+	<summary>메뉴 수정</summary>
+  <img src="./assets/메뉴수정.gif">
+</details>
+
+<details>
+	<summary>메뉴 수정 예외 처리</summary>
+  <img src="./assets/메뉴수정예외처리.gif">
+</details>
+
+<details>
+	<summary>메뉴 삭제</summary>
+  <img src="./assets/메뉴삭제.gif">
+</details>
+
+<details>
+	<summary>메뉴 품절 처리</summary>
+  <img src="./assets/메뉴품절처리.gif">
+</details>
+
+<details>
+	<summary>카테고리별 메뉴 보기</summary>
+  <img src="./assets/카테고리별메뉴보기.gif">
+</details>
+
+<br/>
+
 ## 🎯step1
 
 ### 🏷️ 돔 조작과 이벤트 핸들링으로 메뉴 관리하기
